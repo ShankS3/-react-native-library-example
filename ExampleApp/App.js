@@ -6,8 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,41 +17,45 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header, Button} from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import RNTest from 'react-native-test-lib';
 
-const App: () => Node = () => {
+const App = () => {
+  const [nativeResult, setNativeResult] = useState('nothing');
+  const [deviceId, setDeviceId] = useState('uknown');
+  const [coolFeature, setCoolFeature] = useState('not cool');
+
+  const getNativeResult = async () => {
+    setNativeResult('loading...');
+    try {
+      const response = await RNTest.getValue();
+      setNativeResult(response);
+    } catch (e) {
+      setNativeResult(e);
+    }
+  };
+
+  const getDeviceId = async () => {
+    setDeviceId('loading...');
+    try {
+      const {id} = await RNTest.requestDeviceId();
+      setDeviceId(id);
+    } catch (e) {
+      setDeviceId(e);
+    }
+  };
+
+  const getCoolFeature = async () => {
+    setCoolFeature('loading...');
+    try {
+      const response = await RNTest.coolFeature();
+      setCoolFeature(response);
+    } catch (e) {
+      setCoolFeature(e);
+    }
+  };
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -66,24 +69,31 @@ const App: () => Node = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+        <View style={styles.container}>
+          <Text style={styles.welcome}>Welcome to React Native!</Text>
+          <Text style={styles.instructions}>
+            From our Native platform: {nativeResult}
+          </Text>
+          <Button
+            onPress={getNativeResult}
+            title="Run Native Code"
+            color="#841584"
+            accessibilityLabel="Run Native Code Button"
+          />
+          <Text style={styles.instructions}>Device id: {deviceId}</Text>
+          <Button
+            onPress={getDeviceId}
+            title="Get Device Id"
+            color="#841584"
+            accessibilityLabel="Get Device Id Button"
+          />
+          <Text style={styles.instructions}>Cool feature: {coolFeature}</Text>
+          <Button
+            onPress={getCoolFeature}
+            title="Get Device Id"
+            color="#841584"
+            accessibilityLabel="Get Device Id Button"
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -91,21 +101,21 @@ const App: () => Node = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
   },
 });
 
