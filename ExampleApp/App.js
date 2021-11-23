@@ -19,7 +19,7 @@ import {
 
 import {Colors, Header, Button} from 'react-native/Libraries/NewAppScreen';
 
-import RNTest from 'react-native-library-example';
+import RNLibraryExample from 'react-native-library-example';
 
 const App = () => {
   const [nativeResult, setNativeResult] = useState('nothing');
@@ -29,7 +29,7 @@ const App = () => {
   const getNativeResult = async () => {
     setNativeResult('loading...');
     try {
-      const response = await RNTest.getValue();
+      const response = await RNLibraryExample.getValue();
       setNativeResult(response);
     } catch (e) {
       setNativeResult(e);
@@ -39,7 +39,7 @@ const App = () => {
   const getDeviceId = async () => {
     setDeviceId('loading...');
     try {
-      const {id} = await RNTest.requestDeviceId();
+      const {id} = await RNLibraryExample.requestDeviceId();
       setDeviceId(id);
     } catch (e) {
       setDeviceId(e);
@@ -49,7 +49,7 @@ const App = () => {
   const getCoolFeature = async () => {
     setCoolFeature('loading...');
     try {
-      const response = await RNTest.coolFeature();
+      const response = await RNLibraryExample.coolFeature();
       setCoolFeature(response);
     } catch (e) {
       setCoolFeature(e);

@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "updateLib": "r, -rf node_modules && npm --reset-cache && npm start"
+    "lint": "eslint ."
   },
   "dependencies": {
     "react": "17.0.2",
