@@ -1,10 +1,10 @@
 
 Pod::Spec.new do |s|
-  s.name         = "RNReactNativeLibraryExample"
+  s.name         = "RNLibraryExample"
   s.version      = "1.0.0"
-  s.summary      = "RNReactNativeLibraryExample"
+  s.summary      = "RNLibraryExample"
   s.description  = <<-DESC
-                  RNReactNativeLibraryExample
+                  RNLibraryExample
                    DESC
   s.homepage     = ""
   s.license      = "MIT"
