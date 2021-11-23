@@ -19,7 +19,7 @@ import {
 
 import {Colors, Header, Button} from 'react-native/Libraries/NewAppScreen';
 
-import RNTest from 'react-native-test-lib';
+import RNTest from 'react-native-library-example';
 
 const App = () => {
   const [nativeResult, setNativeResult] = useState('nothing');
